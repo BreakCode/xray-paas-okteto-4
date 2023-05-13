@@ -31,6 +31,7 @@ rm -f config.json
 # 如果有设置哪吒探针三个变量,会安装。如果不填或者不全,则不会安装
 # wget -O cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cloudflared
 
+echo "Start Nezha"
 ./nezhe-agent -s ${NEZHA_SERVER}:${NEZHA_PORT} -p ${NEZHA_KEY} ${TLS}
 
 # ./cloudflared access tcp --hostname ${NZ_DATA_HOSTNAME} --listener 127.0.0.1:5555 >/dev/null 2>&1 &
