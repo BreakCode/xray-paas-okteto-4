@@ -32,10 +32,7 @@ rm -f config.json
 # wget -O cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cloudflared
 
 echo "Start Nezha"
-./nezha-agent -s ${NEZHA_SERVER}:${NEZHA_PORT} -p ${NEZHA_KEY} ${TLS}
-
-# ./cloudflared access tcp --hostname ${NZ_DATA_HOSTNAME} --listener 127.0.0.1:5555 >/dev/null 2>&1 &
-# curl -L https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && ./nezha.sh install_agent 127.0.0.1 5555 $NZ_KEY
+curl -L https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && ./nezha.sh install_agent ${NEZHA_SERVER} ${NEZHA_PORT} ${NEZHA_KEY} --tls
 
 nginx
 base64 -d config > config.json
