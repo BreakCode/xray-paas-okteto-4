@@ -6,8 +6,8 @@ VMESS_WSPATH=${VMESS_WSPATH:-'/vmess'}
 VLESS_WSPATH=${VLESS_WSPATH:-'/vless'}
 TROJAN_WSPATH=${TROJAN_WSPATH:-'/trojan'}
 SS_WSPATH=${SS_WSPATH:-'/shadowsocks'}
-NEZHA_SERVER=${NEZHA_SERVER:-'data.dapao.live'}
-NEZHA_PORT=${NEZHA_PORT:-'443'}
+NEZHA_SERVER=${NEZHA_SERVER:-''}
+NEZHA_PORT=${NEZHA_PORT:-''}
 NEZHA_KEY=${NEZHA_KEY:-''}
 TLS=${TLS:-'1'}
 sed -i "s#UUID#$UUID#g;s#VMESS_WSPATH#${VMESS_WSPATH}#g;s#VLESS_WSPATH#${VLESS_WSPATH}#g;s#TROJAN_WSPATH#${TROJAN_WSPATH}#g;s#SS_WSPATH#${SS_WSPATH}#g" config.json
@@ -31,8 +31,7 @@ rm -f config.json
 # 如果有设置哪吒探针三个变量,会安装。如果不填或者不全,则不会安装
 # wget -O cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cloudflared
 
-echo "Start Nezha"
-curl -L https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && ./nezha.sh install_agent ${NEZHA_SERVER} ${NEZHA_PORT} ${NEZHA_KEY} --tls
+[[ -n "${NEZHA_SERVER}" && -n "${NEZHA_PORT}" && -n "${NEZHA_KEY}" ]] &&  echo "Start Nezha" && curl -L https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && ./nezha.sh install_agent ${NEZHA_SERVER} ${NEZHA_PORT} ${NEZHA_KEY} --tls
 
 nginx
 base64 -d config > config.json
